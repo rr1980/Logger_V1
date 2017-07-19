@@ -28,7 +28,7 @@ namespace Main
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddLoggerService(Configuration);
+            //services.AddLoggerService(Configuration);
             // Add framework services.
             services.AddMvc();
         }
@@ -39,7 +39,7 @@ namespace Main
             //loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
-            loggerFactory.AddLoggerService(Configuration);
+            //loggerFactory.AddLoggerProvider(Configuration);
             app.UseLoggerMiddleware(Configuration);
 
 
