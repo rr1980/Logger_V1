@@ -17,9 +17,12 @@ namespace Logger_V1.Logger
             return app.UseMiddleware<LoggerMiddleware>(loggerService);
         }
 
-        public static IServiceCollection AddLoggerService(this IServiceCollection services, IConfigurationRoot configuration)
+        public static IServiceCollection AddLoggerService(this IServiceCollection services,IMvcBuilder builder, IConfigurationRoot configuration)
         {
-            services.AddSingleton<ILoggerService>(new LoggerService(configuration));
+            var ls = new LoggerService(configuration);
+            services.AddSingleton<ILoggerService>(ls);
+            builder.AddMvcOptions(o => { o.Filters.Add(new LoggerWrapper(ls, "Exception", configuration)); });
+
             return services;
         }
     }

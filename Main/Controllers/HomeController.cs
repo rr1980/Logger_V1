@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Logger_V1.Logger;
 using Logger_V1.Logger.Interfaces;
+using System.Diagnostics;
 
 namespace Main.Controllers
 {
@@ -15,11 +16,16 @@ namespace Main.Controllers
         public HomeController(ILoggerService loggerService)
         {
             _logger = loggerService.CreateLogger<HomeController>();
+
+            _logger.Log("HomeController");
         }
 
         public IActionResult Index()
         {
+            throw new Exception("HomeController ERROR!");
+#pragma warning disable CS0162 // Unerreichbarer Code wurde entdeckt.
             return View();
+#pragma warning restore CS0162 // Unerreichbarer Code wurde entdeckt.
         }
 
         public IActionResult About()
