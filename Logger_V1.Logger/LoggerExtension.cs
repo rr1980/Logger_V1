@@ -10,10 +10,11 @@ namespace Logger_V1.Logger
         public static IApplicationBuilder UseLoggerMiddleware(this IApplicationBuilder app, IConfigurationRoot configuration)
         {
             var loggerFactory = app.ApplicationServices.GetService<ILoggerFactory>();
-            loggerFactory.AddProvider(new LoggerProvider(configuration));
+            var loggerService = app.ApplicationServices.GetService<LoggerService>();
+            loggerFactory.AddProvider(new LoggerProvider(loggerService,configuration));
 
 
-            return app.UseMiddleware<LoggerMiddleware>(loggerFactory);
+            return app.UseMiddleware<LoggerMiddleware>(loggerService);
         }
 
         public static IServiceCollection AddLoggerService(this IServiceCollection services, IConfigurationRoot configuration)

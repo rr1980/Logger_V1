@@ -8,19 +8,19 @@ namespace Logger_V1.Logger
     public class LoggerMiddleware
     {
         private readonly RequestDelegate _next;
-        private readonly ILogger _logger;
+        private readonly ILogger_V1<LoggerMiddleware> _logger;
 
-        public LoggerMiddleware(RequestDelegate next, ILoggerFactory loggerFactory)
+        public LoggerMiddleware(RequestDelegate next, LoggerService loggerService)
         {
             _next = next;
-            _logger = (ILogger)loggerFactory.CreateLogger<LoggerWrapper>();
+            _logger = loggerService.CreateLogger<LoggerMiddleware>();
         }
 
         public async Task Invoke(HttpContext context)
         {
             //var watch = new Stopwatch();
             //watch.Start();
-            _logger.LogInformation("Hallo");
+            _logger.Log("Hallo");
             await _next(context);
 
             //context.Response.Headers.Add("X-Processing-Time-Milliseconds", new[] { watch.ElapsedMilliseconds.ToString() });

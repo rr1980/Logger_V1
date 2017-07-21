@@ -6,16 +6,15 @@ namespace Logger_V1.Logger
     public class LoggerService
     {
         private IConfigurationRoot _configuration;
-        private readonly ConcurrentDictionary<string, LoggerWrapper> _loggers = new ConcurrentDictionary<string, LoggerWrapper>();
 
         public LoggerService(IConfigurationRoot configuration)
         {
             _configuration = configuration;
         }
 
-        public ILogger_V1 CreateLogger(string categoryName)
+        public ILogger_V1<T> CreateLogger<T>()
         {
-            return _loggers.GetOrAdd(categoryName, name => new LoggerWrapper(name, _configuration));
+            return new Logger_V1<T>( _configuration);
         }
     }
 }
