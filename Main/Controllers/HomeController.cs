@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Logger_V1.Logger;
+using Logger_V1.Logger.Interfaces;
 
 namespace Main.Controllers
 {
@@ -11,7 +12,7 @@ namespace Main.Controllers
     {
         private ILogger_V1<HomeController> _logger;
 
-        public HomeController(LoggerService loggerService)
+        public HomeController(ILoggerService loggerService)
         {
             _logger = loggerService.CreateLogger<HomeController>();
         }

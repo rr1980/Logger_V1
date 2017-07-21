@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Logger_V1.Logger.Interfaces;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -10,18 +11,16 @@ namespace Logger_V1.Logger
         public static IApplicationBuilder UseLoggerMiddleware(this IApplicationBuilder app, IConfigurationRoot configuration)
         {
             var loggerFactory = app.ApplicationServices.GetService<ILoggerFactory>();
-            var loggerService = app.ApplicationServices.GetService<LoggerService>();
-            loggerFactory.AddProvider(new LoggerProvider(loggerService,configuration));
-
+            var loggerService = app.ApplicationServices.GetService<ILoggerService>();
+            loggerFactory.AddProvider(new LoggerProvider(loggerService, configuration));
 
             return app.UseMiddleware<LoggerMiddleware>(loggerService);
         }
 
         public static IServiceCollection AddLoggerService(this IServiceCollection services, IConfigurationRoot configuration)
         {
-            services.AddSingleton(new LoggerService(configuration));
+            services.AddSingleton<ILoggerService>(new LoggerService(configuration));
             return services;
         }
     }
 }
-

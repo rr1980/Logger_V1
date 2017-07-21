@@ -1,20 +1,22 @@
 ﻿using Logger_V1.Logger.Interfaces;
 using Microsoft.Extensions.Configuration;
+using System.Diagnostics;
 
 namespace Logger_V1.Logger
 {
-    internal class LoggerService : ILoggerService
+    internal class Logger_V1<T> : ILogger_V1<T>
     {
         private IConfigurationRoot _configuration;
 
-        public LoggerService(IConfigurationRoot configuration)
+        public Logger_V1(IConfigurationRoot configuration)
         {
             _configuration = configuration;
         }
 
-        public ILogger_V1<T> CreateLogger<T>()
+        void ILogger_V1<T>.Log(string msg)
         {
-            return new Logger_V1<T>(_configuration);
+            Debug.WriteLine(msg);
         }
     }
 }
+
