@@ -8,12 +8,12 @@ namespace Logger_V1.Logger
     public class LoggerMiddleware
     {
         private readonly RequestDelegate _next;
-        private readonly Logger _logger;
+        private readonly ILogger _logger;
 
         public LoggerMiddleware(RequestDelegate next, ILoggerFactory loggerFactory)
         {
             _next = next;
-            _logger = (Logger)loggerFactory.CreateLogger<LoggerMiddleware>();
+            _logger = (ILogger)loggerFactory.CreateLogger<LoggerWrapper>();
         }
 
         public async Task Invoke(HttpContext context)

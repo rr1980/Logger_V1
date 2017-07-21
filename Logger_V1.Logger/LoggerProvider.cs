@@ -7,7 +7,7 @@ namespace Logger_V1.Logger
     public class LoggerProvider : ILoggerProvider
     {
         private readonly IConfigurationRoot _config;
-        private readonly ConcurrentDictionary<string, Logger> _loggers = new ConcurrentDictionary<string, Logger>();
+        private readonly ConcurrentDictionary<string, LoggerWrapper> _loggers = new ConcurrentDictionary<string, LoggerWrapper>();
 
         public LoggerProvider(IConfigurationRoot config)
         {
@@ -16,7 +16,7 @@ namespace Logger_V1.Logger
 
         public ILogger CreateLogger(string categoryName)
         {
-            return _loggers.GetOrAdd(categoryName, name => new Logger(name, _config));
+            return _loggers.GetOrAdd(categoryName, name => new LoggerWrapper(name, _config));
         }
 
         public void Dispose()

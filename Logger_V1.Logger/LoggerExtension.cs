@@ -16,31 +16,11 @@ namespace Logger_V1.Logger
             return app.UseMiddleware<LoggerMiddleware>(loggerFactory);
         }
 
-        //public static ILoggerFactory AddLoggerProvider(this ILoggerFactory loggerFactory, IConfigurationRoot configuration)
-        //{
-        //    loggerFactory.AddProvider(new LoggerProvider(configuration));
-            
-
-        //    //services.AddOptions();
-        //    //services.Configure<MultiUserBlockSettings>(configuration.GetSection("MultiUserBlock"));
-
-        //    //services.AddSingleton<IMultiUserBlockManager, MultiUserBlockManager>();
-        //    //services.AddSingleton<IMultiUserBlockWebService, MultiUserBlockWebService>();
-        //    return loggerFactory;
-        //}
-
-        //public static IServiceCollection AddLoggerService(this IServiceCollection services, IConfigurationRoot configuration)
-        //{
-        //    //loggerFactory.AddProvider(new CustomLoggerProvider(new CustomLoggerConfiguration()));
-
-
-        //    //services.AddOptions();
-        //    //services.Configure<MultiUserBlockSettings>(configuration.GetSection("MultiUserBlock"));
-
-        //    //services.AddSingleton<IMultiUserBlockManager, MultiUserBlockManager>();
-        //    //services.AddSingleton<IMultiUserBlockWebService, MultiUserBlockWebService>();
-        //    return services;
-        //}
+        public static IServiceCollection AddLoggerService(this IServiceCollection services, IConfigurationRoot configuration)
+        {
+            services.AddSingleton(new LoggerService(configuration));
+            return services;
+        }
     }
 }
 
